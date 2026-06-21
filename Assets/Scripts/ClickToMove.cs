@@ -2,11 +2,11 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
-// Hero control with two schemes that coexist:
-//  - Click-to-move (for the non-gamer recipient): click the floor to walk there,
-//    or click a colleague / photo and the hero walks over and engages automatically.
-//  - Keyboard (for desktop testing): arrow keys or WASD, camera-relative.
-// Both run through the NavMeshAgent, so the hero always respects walls and furniture.
+// Hero control:
+//  - Free-roam movement: on-screen VirtualJoystick (for the recipient on phone/web)
+//    OR keyboard arrows/WASD (desktop testing). Both are camera-relative and analog.
+//  - Tap a colleague / photo and the hero auto-walks over and engages.
+// Everything runs through the NavMeshAgent, so the hero always respects walls/furniture.
 [RequireComponent(typeof(NavMeshAgent))]
 public class ClickToMove : MonoBehaviour
 {
@@ -23,9 +23,12 @@ public class ClickToMove : MonoBehaviour
 
     [Header("Click filtering")]
     public LayerMask clickMask = ~0;          // what the click ray can hit
+    public float tapThreshold = 12f;          // px; a press that moves more than this is a camera drag, not a tap
 
     private NavMeshAgent agent;
     private IInteractable pendingTarget;
+    private Vector2 pressPos;
+    private bool pressValid;
 
     void Start()
     {
@@ -39,45 +42,72 @@ public class ClickToMove : MonoBehaviour
 
     void Update()
     {
-        bool movedByKeyboard = HandleKeyboard();
+        Vector3 dir = GetDirectionalInput();      // joystick or keyboard, camera-relative
+        bool moving = dir.sqrMagnitude > 0.0001f;
 
-        if (!movedByKeyboard)
+        HandleTap();   // a quick tap interacts; a drag is left for the camera to orbit
+
+        if (moving)
         {
-            if (Input.GetMouseButtonDown(0) && !PointerIsOverUI())
-                HandleClick();
-
+            // free-roam takes over: cancel any tap-to-walk destination
+            pendingTarget = null;
+            if (agent.hasPath) agent.ResetPath();
+            agent.Move(dir * agent.speed * Time.deltaTime);
+            FaceDirection(dir);
+        }
+        else
+        {
             CheckArrival();
             FacePathDirection();
         }
 
-        UpdateAnimator(movedByKeyboard);
+        UpdateAnimator(moving);
     }
 
-    // ---------- Keyboard (arrow keys / WASD), camera-relative ----------
-    bool HandleKeyboard()
+    // ---------- Free-roam directional input (joystick + keyboard), camera-relative ----------
+    Vector3 GetDirectionalInput()
     {
-        if (!enableKeyboard || agent == null) return false;
+        if (agent == null) return Vector3.zero;
 
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
-        var input = new Vector3(h, 0f, v);
-        if (input.sqrMagnitude < 0.01f) return false;
+        float h = 0f, v = 0f;
+        if (enableKeyboard)
+        {
+            h = Input.GetAxisRaw("Horizontal");
+            v = Input.GetAxisRaw("Vertical");
+        }
+        if (VirtualJoystick.Instance != null)
+        {
+            Vector2 j = VirtualJoystick.Instance.Direction;
+            if (j.sqrMagnitude > 0.0001f) { h = j.x; v = j.y; }   // joystick overrides keyboard when active
+        }
+
+        Vector3 raw = new Vector3(h, 0f, v);
+        if (raw.sqrMagnitude < 0.01f) return Vector3.zero;
+        if (raw.sqrMagnitude > 1f) raw.Normalize();               // keep analog magnitude, cap at 1
 
         Vector3 camF = viewCamera != null ? viewCamera.transform.forward : Vector3.forward;
         Vector3 camR = viewCamera != null ? viewCamera.transform.right : Vector3.right;
         camF.y = 0f; camR.y = 0f; camF.Normalize(); camR.Normalize();
-        Vector3 dir = (camF * v + camR * h).normalized;
-
-        // taking manual control cancels any click destination
-        pendingTarget = null;
-        if (agent.hasPath) agent.ResetPath();
-
-        agent.Move(dir * agent.speed * Time.deltaTime);
-        FaceDirection(dir);
-        return true;
+        return camF * raw.z + camR * raw.x;                       // analog: magnitude scales speed
     }
 
-    // ---------- Click-to-move ----------
+    // ---------- Tap detection (distinguishes a tap from a camera drag) ----------
+    void HandleTap()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            pressValid = !PointerIsOverUI();   // ignore presses that start on UI (joystick, dialogue)
+            pressPos = Input.mousePosition;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            if (pressValid && ((Vector2)Input.mousePosition - pressPos).magnitude < tapThreshold)
+                HandleClick();
+            pressValid = false;
+        }
+    }
+
+    // ---------- Tap to walk-and-engage ----------
     void HandleClick()
     {
         if (viewCamera == null) return;
@@ -89,16 +119,12 @@ public class ClickToMove : MonoBehaviour
         var interactable = hit.collider.GetComponentInParent<IInteractable>();
         if (interactable != null)
         {
+            // tapping a colleague / photo walks the hero over and engages
             pendingTarget = interactable;
             agent.stoppingDistance = interactStopDistance;
             agent.SetDestination(interactable.InteractPosition);
         }
-        else
-        {
-            pendingTarget = null;
-            agent.stoppingDistance = 0f;
-            agent.SetDestination(hit.point);
-        }
+        // tap-to-move on empty floor is disabled — movement is joystick / keyboard only
     }
 
     void CheckArrival()
@@ -132,11 +158,10 @@ public class ClickToMove : MonoBehaviour
             transform.rotation, Quaternion.LookRotation(dir), turnSmoothing * Time.deltaTime);
     }
 
-    void UpdateAnimator(bool movedByKeyboard)
+    void UpdateAnimator(bool moving)
     {
         if (characterAnimator == null) return;
-        bool moving = movedByKeyboard || agent.velocity.sqrMagnitude > 0.05f;
-        characterAnimator.SetBool("isMoving", moving);
+        characterAnimator.SetBool("isMoving", moving || agent.velocity.sqrMagnitude > 0.05f);
     }
 
     static bool PointerIsOverUI()
