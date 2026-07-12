@@ -72,7 +72,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - baseColorTexture:
-        m_Texture: {fileID: -2994374058007167164, guid: bfbdd72f103404a3a8da170b501f5ac7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1fbe280a39d1b44429afa9cd026383d0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - emissiveTexture:
@@ -80,15 +80,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - metallicRoughnessTexture:
-        m_Texture: {fileID: -198718522236062245, guid: bfbdd72f103404a3a8da170b501f5ac7, type: 3}
+        m_Texture: {fileID: 2800000, guid: f1206af5c4a334598b5f3811d4cdcb9c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - normalTexture:
-        m_Texture: {fileID: -452837712303008363, guid: bfbdd72f103404a3a8da170b501f5ac7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9f8c2baef7111472eafb34bfca410871, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - occlusionTexture:
-        m_Texture: {fileID: -198718522236062245, guid: bfbdd72f103404a3a8da170b501f5ac7, type: 3}
+        m_Texture: {fileID: 2800000, guid: f1206af5c4a334598b5f3811d4cdcb9c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - transmissionTexture:
