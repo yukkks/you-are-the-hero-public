@@ -2,8 +2,8 @@ using System.Collections;
 using UnityEngine;
 
 // A short establishing sweep of the lounge before control begins: the camera
-// orbits the centre tree, then hands off to CameraFollow. Any click skips it.
-[RequireComponent(typeof(CameraFollow))]
+// orbits the centre tree, then hands off to the gameplay camera (FirstPersonCam
+// if present, else CameraFollow). Any click after the grace period skips it.
 public class IntroSweep : MonoBehaviour
 {
     public Transform focus;            // the lounge centrepiece (set by setup; falls back by name)
@@ -13,12 +13,13 @@ public class IntroSweep : MonoBehaviour
     public float yawFrom = 150f;
     public float yawTo = 55f;
 
-    CameraFollow follow;
-    CanvasGroup titleCard;   // optional "You Are The Hero — for Shikha" overlay
+    Behaviour follow;        // the gameplay camera controller to enable afterwards
+    CanvasGroup titleCard;   // optional title overlay
 
     void Awake()
     {
-        follow = GetComponent<CameraFollow>();
+        follow = GetComponent<FirstPersonCam>();
+        if (follow == null) follow = GetComponent<CameraFollow>();
         var card = GameObject.Find("/Canvas/TitleCard");
         if (card != null) titleCard = card.GetComponent<CanvasGroup>();
     }

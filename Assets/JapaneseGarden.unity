@@ -852,13 +852,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 45273553}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalRotation: {x: -0, y: 0.6148767, z: -0, w: 0.78862333}
+  m_LocalPosition: {x: -21.81, y: 1, z: -1.7399998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1274314455}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 75.886, z: 0}
 --- !u!23 &45273555
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -866,7 +866,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 45273553}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -29258,7 +29258,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: for Shikha
+  m_text: to Shea Lih
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -44909,6 +44909,7 @@ GameObject:
   - component: {fileID: 2130302058}
   - component: {fileID: 2130302059}
   - component: {fileID: 2130302060}
+  - component: {fileID: 2130302061}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -45041,7 +45042,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2130302054}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 433d8fbb9fcd740a0b74b872ed4024dd, type: 3}
   m_Name: 
@@ -45082,6 +45083,27 @@ MonoBehaviour:
   orbitHeight: 3.6
   yawFrom: 215
   yawTo: 125
+--- !u!114 &2130302061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130302054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e1735e7b89b046b08adc0b3cfa390dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FirstPersonCam
+  target: {fileID: 1274314455}
+  eyeHeight: 1.55
+  rotateSpeed: 0.22
+  dragThreshold: 8
+  minPitch: -35
+  maxPitch: 55
+  autoAlign: 1
+  alignDelay: 1
+  alignSpeed: 110
 --- !u!1 &2133103466
 GameObject:
   m_ObjectHideFlags: 0
