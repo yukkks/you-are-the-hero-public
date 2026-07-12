@@ -18,6 +18,9 @@ public class DialogueUI : MonoBehaviour
     public Button nextButton;
     public TMP_Text nextLabel;
 
+    [Header("Portrait (optional)")]
+    public Image portraitImage;
+
     [Header("Typewriter")]
     public float charsPerSecond = 45f;
 
@@ -32,12 +35,19 @@ public class DialogueUI : MonoBehaviour
         if (nextButton != null) nextButton.onClick.AddListener(Next);
     }
 
-    public void Show(string who, string[] newLines)
+    public void Show(string who, string[] newLines) { Show(who, newLines, null); }
+
+    public void Show(string who, string[] newLines, Sprite portrait)
     {
         if (panel == null || newLines == null || newLines.Length == 0) return;
         lines = newLines;
         index = 0;
         if (nameText != null) nameText.text = who;
+        if (portraitImage != null)
+        {
+            portraitImage.sprite = portrait;
+            portraitImage.gameObject.SetActive(portrait != null);
+        }
         panel.SetActive(true);
         ShowCurrent();
     }

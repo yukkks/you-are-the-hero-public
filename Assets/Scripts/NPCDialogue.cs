@@ -10,6 +10,9 @@ public class NPCDialogue : MonoBehaviour, IInteractable
     [Header("What they say (one entry = one screen; player clicks Next)")]
     [TextArea(2, 4)] public string[] lines = { "It's been an honour working alongside you." };
 
+    [Header("Portrait shown in the dialogue panel (optional)")]
+    public Sprite portrait;
+
     [Header("Where the hero stands to talk (optional)")]
     public Transform talkAnchor;   // falls back to this object's position
 
@@ -22,7 +25,7 @@ public class NPCDialogue : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (DialogueUI.Instance != null) DialogueUI.Instance.Show(npcName, lines);
+        if (DialogueUI.Instance != null) DialogueUI.Instance.Show(npcName, lines, portrait);
         bool newly = GameProgress.Instance != null && GameProgress.Instance.MarkGreeted(gameObject);
         if (newly)
         {

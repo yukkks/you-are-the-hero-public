@@ -14,10 +14,13 @@ public class IntroSweep : MonoBehaviour
     public float yawTo = 55f;
 
     CameraFollow follow;
+    CanvasGroup titleCard;   // optional "You Are The Hero — for Shikha" overlay
 
     void Awake()
     {
         follow = GetComponent<CameraFollow>();
+        var card = GameObject.Find("/Canvas/TitleCard");
+        if (card != null) titleCard = card.GetComponent<CanvasGroup>();
     }
 
     void Start()
@@ -35,10 +38,22 @@ public class IntroSweep : MonoBehaviour
     {
         follow.enabled = false;
         float t = 0f;
-        Vector3 pivot = focus.position + Vector3.up * 1.1f;
+        // Use renderer bounds, not the transform: several scene groups keep
+        // their pivot at the world origin with children at world coordinates.
+        Vector3 centre = focus.position;
+        var rends = focus.GetComponentsInChildren<Renderer>();
+        if (rends.Length > 0)
+        {
+            Bounds b = rends[0].bounds;
+            foreach (var r in rends) b.Encapsulate(r.bounds);
+            centre = new Vector3(b.center.x, b.min.y, b.center.z);
+        }
+        Vector3 pivot = centre + Vector3.up * 1.3f;
         while (t < duration)
         {
-            if (Input.GetMouseButtonDown(0) || Input.touchCount > 0) break;   // skip
+            // skip on tap — but not in the first moments, so the tap that
+            // launched the game doesn't instantly cancel the sweep
+            if (t > 0.9f && (Input.GetMouseButtonDown(0) || Input.touchCount > 0)) break;
             t += Time.deltaTime;
             float k = Mathf.SmoothStep(0f, 1f, t / duration);
             float yaw = Mathf.Lerp(yawFrom, yawTo, k) * Mathf.Deg2Rad;
@@ -46,8 +61,15 @@ public class IntroSweep : MonoBehaviour
             pos.y = pivot.y + orbitHeight;
             transform.position = pos;
             transform.LookAt(pivot);
+            if (titleCard != null)
+            {
+                float fadeIn = Mathf.InverseLerp(0.4f, 1.6f, t);
+                float fadeOut = 1f - Mathf.InverseLerp(duration - 1.6f, duration - 0.2f, t);
+                titleCard.alpha = Mathf.Min(fadeIn, fadeOut);
+            }
             yield return null;
         }
+        if (titleCard != null) titleCard.alpha = 0f;
         follow.enabled = true;   // CameraFollow lerps from here to its own pose
         Destroy(this);
     }
