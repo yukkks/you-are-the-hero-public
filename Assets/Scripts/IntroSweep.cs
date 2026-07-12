@@ -32,6 +32,14 @@ public class IntroSweep : MonoBehaviour
             if (centre != null) focus = centre.transform;
         }
         if (focus == null) { enabled = false; return; }
+        // Portrait phones see a much narrower slice: orbit higher and further
+        // out so the establishing shot still reads as "the whole lounge".
+        var cam = GetComponent<Camera>();
+        if (cam != null && cam.aspect < 1f)
+        {
+            orbitDistance *= 1.25f;
+            orbitHeight *= 1.7f;
+        }
         StartCoroutine(Sweep());
     }
 

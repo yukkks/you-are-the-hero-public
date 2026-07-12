@@ -1557,7 +1557,7 @@ MonoBehaviour:
   bodyText: {fileID: 1576147295}
   nextButton: {fileID: 254416704}
   nextLabel: {fileID: 136725924}
-  portraitImage: {fileID: 0}
+  portraitImage: {fileID: 2103759060}
   charsPerSecond: 45
 --- !u!4 &90913808 stripped
 Transform:
@@ -5745,7 +5745,7 @@ MonoBehaviour:
   lines:
   - '[PLACEHOLDER] I''ll never forget the times we shared here.'
   - '[PLACEHOLDER] You made every day brighter. Take care out there, okay?'
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: 9af54ff5e0dd14e16983d2e4dd8005d3, type: 3}
   talkAnchor: {fileID: 0}
 --- !u!136 &307663450
 CapsuleCollider:
@@ -8131,7 +8131,7 @@ MonoBehaviour:
   - '[PLACEHOLDER] Working alongside you has been one of the highlights of my career.'
   - "[PLACEHOLDER] Wishing you nothing but the best on the road ahead \u2014 go get
     'em."
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: 5bb39a93d363d49a1bc78403d6bd9fc5, type: 3}
   talkAnchor: {fileID: 0}
 --- !u!208 &426567068
 NavMeshObstacle:
@@ -21513,7 +21513,7 @@ MonoBehaviour:
   lines:
   - '[PLACEHOLDER] It won''t be the same around here without you.'
   - "[PLACEHOLDER] Thank you for everything \u2014 now go do something amazing."
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: 4e8457836bc454d37916e0e8e3d24949, type: 3}
   talkAnchor: {fileID: 0}
 --- !u!136 &1156996284
 CapsuleCollider:
@@ -21930,6 +21930,7 @@ RectTransform:
   - {fileID: 1698169870}
   - {fileID: 1576147297}
   - {fileID: 254416701}
+  - {fileID: 2103759062}
   m_Father: {fileID: 227553542}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
@@ -21973,7 +21974,7 @@ MonoBehaviour:
   lines:
   - '[PLACEHOLDER] You taught me more than you know.'
   - '[PLACEHOLDER] I''m going to miss our talks. Promise you''ll stay in touch.'
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: 20641333b9d8e4d57849af7561ea54d7, type: 3}
   talkAnchor: {fileID: 0}
 --- !u!136 &1178307631
 CapsuleCollider:
@@ -23701,8 +23702,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1274314449}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.3600001, y: 9.51, z: 6.7560005}
+  m_LocalRotation: {x: 0, y: 0.8534452, z: 0, w: 0.5211827}
+  m_LocalPosition: {x: -1.9721353, y: 9.51, z: 4.3241634}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -32126,7 +32127,7 @@ MonoBehaviour:
   npcName: Misha
   lines:
   - It's been an honour working alongside you.
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: 2f4fd69746b8140548b4e67ccc763158, type: 3}
   talkAnchor: {fileID: 0}
 --- !u!136 &1766704161
 CapsuleCollider:
@@ -32657,7 +32658,7 @@ MonoBehaviour:
   - "[PLACEHOLDER] From all of us \u2014 thank you, truly."
   - '[PLACEHOLDER] You''ve left a mark on this place that won''t fade. Farewell,
     friend.'
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: d95e92a370a67407095cb9a4245b8ef3, type: 3}
   talkAnchor: {fileID: 0}
 --- !u!136 &1782329209
 CapsuleCollider:
@@ -44506,6 +44507,81 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2096480799}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2103759059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2103759062}
+  - component: {fileID: 2103759061}
+  - component: {fileID: 2103759060}
+  m_Layer: 0
+  m_Name: Portrait
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &2103759060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103759059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2103759061
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103759059}
+  m_CullTransparentMesh: 1
+--- !u!224 &2103759062
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103759059}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1169538339}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 18, y: 8}
+  m_SizeDelta: {x: 120, y: 120}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &2110592804
 GameObject:
   m_ObjectHideFlags: 0
