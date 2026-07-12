@@ -45,6 +45,9 @@ public class GameProgress : MonoBehaviour
         return newly;
     }
 
+    public bool IsGreeted(GameObject npc) => npcsGreeted.Contains(npc);
+    public bool IsPhotoViewed(GameObject photo) => photosViewed.Contains(photo);
+
     public int GreetedCount => npcsGreeted.Count;
     public int NpcTotal => npcs.Count;
     public int PhotosViewedCount => photosViewed.Count;

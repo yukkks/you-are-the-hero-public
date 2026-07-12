@@ -1,9 +1,11 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 // Shared speech panel: shows a colleague's name + their lines one screen at a
-// time. The player clicks Next to advance; the last screen reads "Close".
+// time, typed out character by character. Clicking Next mid-type completes the
+// line instantly; the last screen's button reads "Close".
 public class DialogueUI : MonoBehaviour
 {
     public static DialogueUI Instance { get; private set; }
@@ -16,8 +18,12 @@ public class DialogueUI : MonoBehaviour
     public Button nextButton;
     public TMP_Text nextLabel;
 
+    [Header("Typewriter")]
+    public float charsPerSecond = 45f;
+
     string[] lines;
     int index;
+    Coroutine typing;
 
     void Awake()
     {
@@ -38,13 +44,37 @@ public class DialogueUI : MonoBehaviour
 
     void ShowCurrent()
     {
-        if (bodyText != null) bodyText.text = lines[index];
+        if (bodyText == null) return;
+        if (typing != null) StopCoroutine(typing);
+        typing = StartCoroutine(TypeLine(lines[index]));
         bool last = index >= lines.Length - 1;
         if (nextLabel != null) nextLabel.text = last ? "Close" : "Next ›";
     }
 
+    IEnumerator TypeLine(string line)
+    {
+        bodyText.text = line;
+        bodyText.maxVisibleCharacters = 0;
+        float shown = 0f;
+        while (bodyText.maxVisibleCharacters < line.Length)
+        {
+            shown += charsPerSecond * Time.deltaTime;
+            bodyText.maxVisibleCharacters = Mathf.Min(line.Length, Mathf.FloorToInt(shown));
+            yield return null;
+        }
+        typing = null;
+    }
+
     public void Next()
     {
+        // first click on a still-typing line completes it instead of advancing
+        if (typing != null && bodyText != null)
+        {
+            StopCoroutine(typing);
+            typing = null;
+            bodyText.maxVisibleCharacters = int.MaxValue;
+            return;
+        }
         index++;
         if (lines == null || index >= lines.Length) { Hide(); return; }
         ShowCurrent();
@@ -52,6 +82,7 @@ public class DialogueUI : MonoBehaviour
 
     public void Hide()
     {
+        if (typing != null) { StopCoroutine(typing); typing = null; }
         if (panel != null) panel.SetActive(false);
     }
 }

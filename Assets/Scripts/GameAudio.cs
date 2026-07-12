@@ -60,8 +60,20 @@ public class GameAudio : MonoBehaviour
         return src;
     }
 
+    float retryTimer;
+
     void Update()
     {
+        // Self-heal the ambience loops: if the audio device hiccupped (editor
+        // FMOD re-init, browser autoplay unlock timing), quietly try again.
+        retryTimer += Time.deltaTime;
+        if (retryTimer > 2f)
+        {
+            retryTimer = 0f;
+            if (musicSrc != null && musicSrc.clip != null && !musicSrc.isPlaying) musicSrc.Play();
+            if (roomSrc != null && roomSrc.clip != null && !roomSrc.isPlaying) roomSrc.Play();
+        }
+
         if (hero == null || stepsSrc == null || stepsSrc.clip == null) return;
         bool moving = hero.velocity.magnitude > 0.4f;
         if (moving && !stepsSrc.isPlaying) stepsSrc.UnPause();
@@ -75,4 +87,5 @@ public class GameAudio : MonoBehaviour
 
     public static void PlayGreet() { if (Instance) Instance.PlayOneShot(Instance.greetChime); }
     public static void PlayPhoto() { if (Instance) Instance.PlayOneShot(Instance.photoShimmer); }
+    public static void PlayClip(AudioClip clip) { if (Instance) Instance.PlayOneShot(clip); }
 }
