@@ -10,10 +10,11 @@ public class GameProgress : MonoBehaviour
     public static GameProgress Instance { get; private set; }
 
     // Interactables register themselves so totals are derived, never hand-counted.
-    private readonly HashSet<int> npcs = new HashSet<int>();
-    private readonly HashSet<int> npcsGreeted = new HashSet<int>();
-    private readonly HashSet<int> photos = new HashSet<int>();
-    private readonly HashSet<int> photosViewed = new HashSet<int>();
+    // Keyed by the objects themselves (GetInstanceID is a compile error on newer Unity).
+    private readonly HashSet<GameObject> npcs = new HashSet<GameObject>();
+    private readonly HashSet<GameObject> npcsGreeted = new HashSet<GameObject>();
+    private readonly HashSet<GameObject> photos = new HashSet<GameObject>();
+    private readonly HashSet<GameObject> photosViewed = new HashSet<GameObject>();
 
     public UnityEvent OnProgressChanged = new UnityEvent();   // drives the on-screen nudge
     public UnityEvent OnAllComplete = new UnityEvent();        // triggers the finale
@@ -26,17 +27,17 @@ public class GameProgress : MonoBehaviour
         Instance = this;
     }
 
-    public void RegisterNPC(GameObject npc) { npcs.Add(npc.GetInstanceID()); }
-    public void RegisterPhoto(GameObject photo) { photos.Add(photo.GetInstanceID()); }
+    public void RegisterNPC(GameObject npc) { npcs.Add(npc); }
+    public void RegisterPhoto(GameObject photo) { photos.Add(photo); }
 
     public void MarkGreeted(GameObject npc)
     {
-        if (npcsGreeted.Add(npc.GetInstanceID())) Changed();
+        if (npcsGreeted.Add(npc)) Changed();
     }
 
     public void MarkPhotoViewed(GameObject photo)
     {
-        if (photosViewed.Add(photo.GetInstanceID())) Changed();
+        if (photosViewed.Add(photo)) Changed();
     }
 
     public int GreetedCount => npcsGreeted.Count;
