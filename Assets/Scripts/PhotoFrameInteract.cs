@@ -20,6 +20,7 @@ public class PhotoFrameInteract : MonoBehaviour, IInteractable
     public void Interact()
     {
         if (PhotoViewerUI.Instance != null) PhotoViewerUI.Instance.Show(photoTexture);
-        if (GameProgress.Instance != null) GameProgress.Instance.MarkPhotoViewed(gameObject);
+        if (GameProgress.Instance != null && GameProgress.Instance.MarkPhotoViewed(gameObject))
+            GameAudio.PlayPhoto();
     }
 }

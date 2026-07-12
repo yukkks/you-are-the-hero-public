@@ -23,6 +23,12 @@ public class NPCDialogue : MonoBehaviour, IInteractable
     public void Interact()
     {
         if (DialogueUI.Instance != null) DialogueUI.Instance.Show(npcName, lines);
-        if (GameProgress.Instance != null) GameProgress.Instance.MarkGreeted(gameObject);
+        bool newly = GameProgress.Instance != null && GameProgress.Instance.MarkGreeted(gameObject);
+        if (newly)
+        {
+            GameAudio.PlayGreet();
+            var presence = GetComponent<NPCPresence>();
+            if (presence != null) presence.Bow();
+        }
     }
 }

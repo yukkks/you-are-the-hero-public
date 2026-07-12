@@ -30,14 +30,19 @@ public class GameProgress : MonoBehaviour
     public void RegisterNPC(GameObject npc) { npcs.Add(npc); }
     public void RegisterPhoto(GameObject photo) { photos.Add(photo); }
 
-    public void MarkGreeted(GameObject npc)
+    // Both return true only the FIRST time (drives one-time chimes/bows).
+    public bool MarkGreeted(GameObject npc)
     {
-        if (npcsGreeted.Add(npc)) Changed();
+        bool newly = npcsGreeted.Add(npc);
+        if (newly) Changed();
+        return newly;
     }
 
-    public void MarkPhotoViewed(GameObject photo)
+    public bool MarkPhotoViewed(GameObject photo)
     {
-        if (photosViewed.Add(photo)) Changed();
+        bool newly = photosViewed.Add(photo);
+        if (newly) Changed();
+        return newly;
     }
 
     public int GreetedCount => npcsGreeted.Count;
