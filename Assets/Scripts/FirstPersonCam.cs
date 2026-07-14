@@ -9,7 +9,10 @@ using UnityEngine.EventSystems;
 public class FirstPersonCam : MonoBehaviour
 {
     public Transform target;
-    public float eyeHeight = 1.55f;
+    // The lounge and avatars are built at ~2x real-world scale (NPC heads sit
+    // ~3.2m above the floor), so "eye height" must match that scale or the
+    // first-person view stares at everyone's waist.
+    public float eyeHeight = 3.15f;
 
     [Header("Drag to look")]
     public float rotateSpeed = 0.22f;     // degrees per pixel
