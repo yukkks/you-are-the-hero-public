@@ -29,14 +29,15 @@ public class InteractableBeacon : MonoBehaviour
         }
         baseY = b.max.y + height;
 
-        // No CreatePrimitive: it adds a SphereCollider, which engine-code
-        // stripping removes from WebGL builds (nothing else uses one) and the
-        // call fails. Build the orb from the built-in mesh directly.
+        // No CreatePrimitive (stripped SphereCollider breaks it in WebGL) and no
+        // GetBuiltinResource (editor-only reliability) — the mesh comes from the
+        // scene's PrimitiveLibrary, which the build is guaranteed to include.
+        if (PrimitiveLibrary.Sphere == null) { enabled = false; return; }
         var go = new GameObject("Beacon", typeof(MeshFilter), typeof(MeshRenderer));
         go.transform.SetParent(transform, true);
         go.transform.position = new Vector3(b.center.x, baseY, b.center.z);
         go.transform.localScale = Vector3.one * 0.16f;
-        go.GetComponent<MeshFilter>().sharedMesh = Resources.GetBuiltinResource<Mesh>("New-Sphere.fbx");
+        go.GetComponent<MeshFilter>().sharedMesh = PrimitiveLibrary.Sphere;
         orb = go.transform;
 
         mat = new Material(Shader.Find("Universal Render Pipeline/Lit"));

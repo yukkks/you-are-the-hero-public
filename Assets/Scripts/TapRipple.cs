@@ -12,14 +12,17 @@ public class TapRipple : MonoBehaviour
 
     public static void Spawn(Vector3 worldPos)
     {
+        if (PrimitiveLibrary.Cylinder == null) return;
         var go = new GameObject("TapRipple", typeof(MeshFilter), typeof(MeshRenderer), typeof(TapRipple));
         go.transform.position = worldPos + Vector3.up * 0.03f;
         go.transform.localScale = new Vector3(0.5f, 0.012f, 0.5f);
-        go.GetComponent<MeshFilter>().sharedMesh = Resources.GetBuiltinResource<Mesh>("New-Cylinder.fbx");
+        go.GetComponent<MeshFilter>().sharedMesh = PrimitiveLibrary.Cylinder;
 
         if (sharedMat == null)
         {
-            sharedMat = new Material(Shader.Find("Universal Render Pipeline/Unlit"));
+            // URP/Lit is guaranteed in the build (the whole scene uses it);
+            // URP/Unlit may be stripped.
+            sharedMat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
             sharedMat.SetFloat("_Surface", 1f);   // transparent
             sharedMat.SetFloat("_ZWrite", 0f);
             sharedMat.renderQueue = 3000;

@@ -56,7 +56,9 @@ public class FinaleMoment : MonoBehaviour
         rot.enabled = true;
         rot.z = new ParticleSystem.MinMaxCurve(-4f, 4f);
         var psr = go.GetComponent<ParticleSystemRenderer>();
-        psr.material = new Material(Shader.Find("Universal Render Pipeline/Particles/Unlit"));
+        // Shader.Find on a particles shader can miss in a stripped build; the
+        // scene-referenced particle material always survives.
+        if (PrimitiveLibrary.Particle != null) psr.material = PrimitiveLibrary.Particle;
         Destroy(go, 5f);
     }
 }
