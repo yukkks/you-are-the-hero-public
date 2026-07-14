@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 // The Last Flame's master dial. Progress 0 -> 1 lerps the WHOLE room's mood via
 // global lighting parameters only (ambient, sun, fog) — no per-object lights, so
@@ -32,6 +33,9 @@ public class LightingDirector : MonoBehaviour
     [Header("Response")]
     public float easeSpeed = 1.4f;   // how fast the room follows the target
 
+    [Header("Dark veil (uniform screen darkening — the real cave-dark lever)")]
+    [Range(0f, 1f)] public float maxVeil = 0.82f;   // opacity of the black veil at progress 0
+
     public float Target { get; private set; }   // 0..1, set by the flame system
     float current;
     Light sun;
@@ -39,6 +43,7 @@ public class LightingDirector : MonoBehaviour
     Color camClear;
     Material skybox;
     float skyExposure = 1f;
+    Image veil;
 
     void Awake()
     {
@@ -56,8 +61,28 @@ public class LightingDirector : MonoBehaviour
         RenderSettings.ambientMode = AmbientMode.Trilight;
         RenderSettings.fog = true;
         RenderSettings.fogMode = FogMode.ExponentialSquared;
+        BuildVeil();
         current = Target;   // start wherever the target is (0 for the real game)
         Apply(current);
+    }
+
+    // A full-screen black Image on its own top-most canvas. Uniformly darkens the
+    // whole frame regardless of material — the robust cave-dark lever, cheap and
+    // WebGL-safe. Sits BELOW the game HUD canvas so buttons stay usable.
+    void BuildVeil()
+    {
+        var go = new GameObject("DarkVeil", typeof(Canvas), typeof(CanvasScaler));
+        var canvas = go.GetComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.sortingOrder = 50;   // above the world, below the HUD (which is higher)
+        var imgGo = new GameObject("Veil", typeof(Image));
+        imgGo.transform.SetParent(go.transform, false);
+        veil = imgGo.GetComponent<Image>();
+        veil.color = new Color(0f, 0f, 0f, 0f);
+        veil.raycastTarget = false;   // never eats touches
+        var rt = veil.rectTransform;
+        rt.anchorMin = Vector2.zero; rt.anchorMax = Vector2.one;
+        rt.offsetMin = Vector2.zero; rt.offsetMax = Vector2.zero;
     }
 
     // 0..1 — how awake the room should be. Call as flames are given out.
@@ -101,6 +126,14 @@ public class LightingDirector : MonoBehaviour
                 cam.backgroundColor = Color.Lerp(new Color(0.004f, 0.006f, 0.012f), camClear, k / 0.15f);
             }
             else cam.clearFlags = CameraClearFlags.Skybox;
+        }
+
+        // The veil: heaviest in the dark, gone by the time the room is warm.
+        // Curved so it clears quickly in the last third (room feels "fully awake").
+        if (veil != null)
+        {
+            float a = maxVeil * (1f - Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(k / 0.85f)));
+            veil.color = new Color(0f, 0f, 0f, a);
         }
     }
 

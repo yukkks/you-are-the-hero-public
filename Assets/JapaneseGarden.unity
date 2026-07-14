@@ -5744,9 +5744,6 @@ PrefabInstance:
       addedObject: {fileID: 307663455}
     - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: f5e0101f8b2f74eb8b2d254d8513101f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 307663456}
-    - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: f5e0101f8b2f74eb8b2d254d8513101f, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 307663457}
   m_SourcePrefab: {fileID: -4161369568681901532, guid: f5e0101f8b2f74eb8b2d254d8513101f, type: 3}
 --- !u!1 &305339324
@@ -6008,21 +6005,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InteractableBeacon
   height: 0.35
   glow: {r: 1, g: 0.78, b: 0.35, a: 1}
---- !u!114 &307663456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 235318807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6748b0a37384be3844d08999c4acf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NameTag
-  displayName: 
-  showDistance: 7
-  height: 0.12
 --- !u!114 &307663457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8423,21 +8405,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InteractableBeacon
   height: 0.35
   glow: {r: 1, g: 0.78, b: 0.35, a: 1}
---- !u!114 &426567072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 426567061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6748b0a37384be3844d08999c4acf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NameTag
-  displayName: 
-  showDistance: 7
-  height: 0.12
 --- !u!95 &426567073
 Animator:
   serializedVersion: 7
@@ -14147,9 +14114,6 @@ PrefabInstance:
       addedObject: {fileID: 426567071}
     - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: bfbdd72f103404a3a8da170b501f5ac7, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 426567072}
-    - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: bfbdd72f103404a3a8da170b501f5ac7, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 426567073}
   m_SourcePrefab: {fileID: -4161369568681901532, guid: bfbdd72f103404a3a8da170b501f5ac7, type: 3}
 --- !u!1 &783392208
@@ -14763,9 +14727,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: e55b3e1f921fc4478839205432483d99, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1766704164}
-    - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: e55b3e1f921fc4478839205432483d99, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1766704165}
   m_SourcePrefab: {fileID: -4161369568681901532, guid: e55b3e1f921fc4478839205432483d99, type: 3}
 --- !u!1 &797135948
 GameObject:
@@ -18555,9 +18516,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: bf085a227c87f49429654e2bd8ba225b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1178307636}
-    - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: bf085a227c87f49429654e2bd8ba225b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1178307637}
   m_SourcePrefab: {fileID: -4161369568681901532, guid: bf085a227c87f49429654e2bd8ba225b, type: 3}
 --- !u!1 &980220896
 GameObject:
@@ -22214,21 +22172,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InteractableBeacon
   height: 0.35
   glow: {r: 1, g: 0.78, b: 0.35, a: 1}
---- !u!114 &1156996290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1156996281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6748b0a37384be3844d08999c4acf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NameTag
-  displayName: 
-  showDistance: 7
-  height: 0.12
 --- !u!1001 &1159293499
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22676,21 +22619,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InteractableBeacon
   height: 0.35
   glow: {r: 1, g: 0.78, b: 0.35, a: 1}
---- !u!114 &1178307637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 690695799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6748b0a37384be3844d08999c4acf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NameTag
-  displayName: 
-  showDistance: 7
-  height: 0.12
 --- !u!1 &1183858499
 GameObject:
   m_ObjectHideFlags: 0
@@ -24855,9 +24783,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: 39161ca0040b0480096bcfc62e7a8ffe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1156996289}
-    - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: 39161ca0040b0480096bcfc62e7a8ffe, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1156996290}
   m_SourcePrefab: {fileID: -4161369568681901532, guid: 39161ca0040b0480096bcfc62e7a8ffe, type: 3}
 --- !u!1 &1328965237
 GameObject:
@@ -26839,6 +26764,7 @@ MonoBehaviour:
   warmFog: {r: 0.86, g: 0.8, b: 0.7, a: 1}
   warmFogDensity: 0.006
   easeSpeed: 1.4
+  maxVeil: 0.82
 --- !u!4 &1450043277
 Transform:
   m_ObjectHideFlags: 0
@@ -33115,21 +33041,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InteractableBeacon
   height: 0.35
   glow: {r: 1, g: 0.78, b: 0.35, a: 1}
---- !u!114 &1766704165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1766704158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6748b0a37384be3844d08999c4acf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NameTag
-  displayName: 
-  showDistance: 7
-  height: 0.12
 --- !u!1 &1768358633
 GameObject:
   m_ObjectHideFlags: 0
@@ -33571,9 +33482,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: 5c018b85c9c1845029916e904fb7e796, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1782329214}
-    - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: 5c018b85c9c1845029916e904fb7e796, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1782329215}
   m_SourcePrefab: {fileID: -4161369568681901532, guid: 5c018b85c9c1845029916e904fb7e796, type: 3}
 --- !u!4 &1782329206 stripped
 Transform:
@@ -33667,21 +33575,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InteractableBeacon
   height: 0.35
   glow: {r: 1, g: 0.78, b: 0.35, a: 1}
---- !u!114 &1782329215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 912049640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6748b0a37384be3844d08999c4acf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NameTag
-  displayName: 
-  showDistance: 7
-  height: 0.12
 --- !u!1001 &1783400872
 PrefabInstance:
   m_ObjectHideFlags: 0
