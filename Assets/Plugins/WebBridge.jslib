@@ -4,5 +4,11 @@ mergeInto(LibraryManager.library, {
   NotifyGameComplete: function () {
     try { window.parent.postMessage(JSON.stringify({ type: 'gameComplete' }), '*'); } catch (e) {}
     try { window.postMessage(JSON.stringify({ type: 'gameComplete' }), '*'); } catch (e) {}
+  },
+
+  // Called from C# on the first playable frame so the wrapper can lift its
+  // loading veil exactly when the lounge is ready (dog-runner pattern).
+  NotifyGameReady: function () {
+    try { window.parent.postMessage('game-ready', '*'); } catch (e) {}
   }
 });
