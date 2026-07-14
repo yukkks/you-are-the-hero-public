@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
 // First-person view: the hero IS the player, so she is never rendered.
@@ -20,23 +21,22 @@ public class FirstPersonCam : MonoBehaviour
     public float minPitch = -35f;
     public float maxPitch = 55f;
 
-    [Header("Auto-align while walking")]
+    [Header("Auto-align (only while auto-walking to a tapped target)")]
     public bool autoAlign = true;
-    public float alignDelay = 1.0f;
-    public float alignSpeed = 110f;
+    public float alignSpeed = 160f;
 
     float yaw, pitch;
     Vector2 lastPointer;
     bool pressing, draggingThisPress;
     float lastDragTime = -99f;
-    Vector3 lastTargetPos;
+    NavMeshAgent agentRef;
 
     void OnEnable()
     {
         if (target != null)
         {
             yaw = target.eulerAngles.y;
-            lastTargetPos = target.position;
+            agentRef = target.GetComponent<NavMeshAgent>();
         }
         pitch = 8f;
     }
@@ -72,13 +72,20 @@ public class FirstPersonCam : MonoBehaviour
     {
         if (target == null) return;
 
-        bool moving = (target.position - lastTargetPos).sqrMagnitude > 0.0000001f;
-        lastTargetPos = target.position;
-
-        if (autoAlign && moving && Time.time - lastDragTime > alignDelay)
+        // The camera is the authority: joystick movement is camera-relative and
+        // NEVER swings the view (that was the swimmy feel). Only when the hero
+        // auto-walks to a tapped colleague/photo does the view ease around to
+        // face the walk direction, so she isn't walking blind.
+        bool pathWalking = agentRef != null && agentRef.hasPath && agentRef.velocity.sqrMagnitude > 0.3f;
+        if (autoAlign && pathWalking && Time.time - lastDragTime > 0.35f)
         {
-            yaw = Mathf.MoveTowardsAngle(yaw, target.eulerAngles.y, alignSpeed * Time.deltaTime);
-            pitch = Mathf.MoveTowards(pitch, 8f, 20f * Time.deltaTime);
+            Vector3 v = agentRef.velocity; v.y = 0f;
+            if (v.sqrMagnitude > 0.01f)
+            {
+                float walkYaw = Quaternion.LookRotation(v.normalized).eulerAngles.y;
+                yaw = Mathf.MoveTowardsAngle(yaw, walkYaw, alignSpeed * Time.deltaTime);
+                pitch = Mathf.MoveTowards(pitch, 8f, 25f * Time.deltaTime);
+            }
         }
 
         transform.position = target.position + Vector3.up * eyeHeight;
