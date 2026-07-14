@@ -5745,6 +5745,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: f5e0101f8b2f74eb8b2d254d8513101f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 307663456}
+    - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: f5e0101f8b2f74eb8b2d254d8513101f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 307663457}
   m_SourcePrefab: {fileID: -4161369568681901532, guid: f5e0101f8b2f74eb8b2d254d8513101f, type: 3}
 --- !u!1 &305339324
 GameObject:
@@ -6020,6 +6023,20 @@ MonoBehaviour:
   displayName: 
   showDistance: 7
   height: 0.12
+--- !u!114 &307663457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235318807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca61cecd21f28450db5d37a069cc24bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StoneState
+  stoneColor: {r: 0.44, g: 0.46, b: 0.5, a: 1}
+  wakePulse: 1.2
 --- !u!1001 &319670882
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26778,6 +26795,65 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1446076404}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1450043275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1450043277}
+  - component: {fileID: 1450043276}
+  m_Layer: 0
+  m_Name: LightingDirector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1450043276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450043275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b3136401eda54deb997f7993b50e256, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LightingDirector
+  darkSky: {r: 0.1, g: 0.13, b: 0.2, a: 1}
+  darkEquator: {r: 0.07, g: 0.09, b: 0.14, a: 1}
+  darkGround: {r: 0.03, g: 0.04, b: 0.06, a: 1}
+  darkSun: 0.1
+  darkSunColor: {r: 0.55, g: 0.62, b: 0.85, a: 1}
+  darkFog: {r: 0.06, g: 0.08, b: 0.13, a: 1}
+  darkFogDensity: 0.045
+  warmSky: {r: 1, g: 0.91, b: 0.8, a: 1}
+  warmEquator: {r: 0.85, g: 0.75, b: 0.64, a: 1}
+  warmGround: {r: 0.42, g: 0.35, b: 0.3, a: 1}
+  warmSun: 1.15
+  warmSunColor: {r: 1, g: 0.87, b: 0.72, a: 1}
+  warmFog: {r: 0.86, g: 0.8, b: 0.7, a: 1}
+  warmFogDensity: 0.006
+  easeSpeed: 1.4
+--- !u!4 &1450043277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450043275}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1458224497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31339,6 +31415,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1683913550}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1685414362
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1685414364}
+  - component: {fileID: 1685414363}
+  m_Layer: 0
+  m_Name: FlameGame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1685414363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685414362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9e9ef9af79e4238bfcbaeeec5a8720, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlameGame
+--- !u!4 &1685414364
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685414362}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1693299555
 GameObject:
   m_ObjectHideFlags: 0
@@ -46067,6 +46187,7 @@ GameObject:
   - component: {fileID: 2130302059}
   - component: {fileID: 2130302060}
   - component: {fileID: 2130302061}
+  - component: {fileID: 2130302062}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -46260,6 +46381,24 @@ MonoBehaviour:
   maxPitch: 55
   autoAlign: 1
   alignSpeed: 110
+--- !u!114 &2130302062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130302054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47639f53fc0ff4208a05f88d730f9480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarriedFlame
+  followTarget: {fileID: 2130302057}
+  baseIntensity: 2.4
+  range: 9
+  color: {r: 1, g: 0.72, b: 0.38, a: 1}
+  offset: {x: 0.2, y: -0.15, z: 0.3}
+  fuel: 1
 --- !u!1 &2133103466
 GameObject:
   m_ObjectHideFlags: 0
@@ -46671,3 +46810,5 @@ SceneRoots:
   - {fileID: 1846494193}
   - {fileID: 1316433105}
   - {fileID: 1794478459}
+  - {fileID: 1450043277}
+  - {fileID: 1685414364}
