@@ -25,8 +25,9 @@ public class GameAudio : MonoBehaviour
     [Range(0f, 1f)] public float footstepsVolume = 0.55f;
     [Range(0f, 1f)] public float sfxVolume = 0.9f;
 
-    AudioSource musicSrc, roomSrc, stepsSrc, sfxSrc;
+    AudioSource musicSrc, roomSrc, stepsSrc, sfxSrc, voiceSrc;
     NavMeshAgent hero;
+    Coroutine duck;
 
     void Awake()
     {
@@ -37,6 +38,7 @@ public class GameAudio : MonoBehaviour
         roomSrc = MakeSource(roomTone, true, roomToneVolume);
         stepsSrc = MakeSource(footsteps, true, footstepsVolume);
         sfxSrc = MakeSource(null, false, sfxVolume);
+        voiceSrc = MakeSource(null, false, 1f);
         if (stepsSrc) stepsSrc.Pause();
     }
 
@@ -88,4 +90,42 @@ public class GameAudio : MonoBehaviour
     public static void PlayGreet() { if (Instance) Instance.PlayOneShot(Instance.greetChime); }
     public static void PlayPhoto() { if (Instance) Instance.PlayOneShot(Instance.photoShimmer); }
     public static void PlayClip(AudioClip clip) { if (Instance) Instance.PlayOneShot(clip); }
+
+    // A colleague speaks: play their voice and duck the music underneath it.
+    public static void PlayVoice(AudioClip clip)
+    {
+        if (Instance == null || clip == null || Instance.voiceSrc == null) return;
+        Instance.voiceSrc.Stop();
+        Instance.voiceSrc.clip = clip;
+        Instance.voiceSrc.Play();
+        if (Instance.duck != null) Instance.StopCoroutine(Instance.duck);
+        Instance.duck = Instance.StartCoroutine(Instance.DuckMusic(clip.length));
+    }
+
+    System.Collections.IEnumerator DuckMusic(float voiceLength)
+    {
+        float t = 0f;
+        while (t < 0.4f)
+        {
+            t += Time.deltaTime;
+            SetBedVolume(Mathf.Lerp(1f, 0.25f, t / 0.4f));
+            yield return null;
+        }
+        yield return new WaitForSeconds(Mathf.Max(0f, voiceLength - 0.4f));
+        t = 0f;
+        while (t < 1.2f)
+        {
+            t += Time.deltaTime;
+            SetBedVolume(Mathf.Lerp(0.25f, 1f, t / 1.2f));
+            yield return null;
+        }
+        SetBedVolume(1f);
+        duck = null;
+    }
+
+    void SetBedVolume(float mul)
+    {
+        if (musicSrc != null) musicSrc.volume = musicVolume * mul;
+        if (roomSrc != null) roomSrc.volume = roomToneVolume * mul;
+    }
 }

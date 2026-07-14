@@ -13,6 +13,9 @@ public class NPCDialogue : MonoBehaviour, IInteractable
     [Header("Portrait shown in the dialogue panel (optional)")]
     public Sprite portrait;
 
+    [Header("Their voice, played when the dialogue opens (optional)")]
+    public AudioClip voiceClip;
+
     [Header("Where the hero stands to talk (optional)")]
     public Transform talkAnchor;   // falls back to this object's position
 
@@ -26,6 +29,7 @@ public class NPCDialogue : MonoBehaviour, IInteractable
     public void Interact()
     {
         if (DialogueUI.Instance != null) DialogueUI.Instance.Show(npcName, lines, portrait);
+        if (voiceClip != null) GameAudio.PlayVoice(voiceClip);
         bool newly = GameProgress.Instance != null && GameProgress.Instance.MarkGreeted(gameObject);
         if (newly)
         {
