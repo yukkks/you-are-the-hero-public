@@ -123,8 +123,19 @@ public class ClickToMove : MonoBehaviour
             pendingTarget = interactable;
             agent.stoppingDistance = interactStopDistance;
             agent.SetDestination(interactable.InteractPosition);
+            TapRipple.Spawn(interactable.InteractPosition);
+            return;
         }
-        // tap-to-move on empty floor is disabled — movement is joystick / keyboard only
+
+        // tap-to-go: tap any walkable spot and the hero strolls there — the
+        // primary control for a non-gamer on a phone (joystick stays available)
+        if (NavMesh.SamplePosition(hit.point, out NavMeshHit navHit, 1.5f, NavMesh.AllAreas))
+        {
+            pendingTarget = null;
+            agent.stoppingDistance = 0f;
+            agent.SetDestination(navHit.position);
+            TapRipple.Spawn(navHit.position);
+        }
     }
 
     void CheckArrival()
