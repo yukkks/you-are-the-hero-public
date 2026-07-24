@@ -20256,6 +20256,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1060492658}
+  - component: {fileID: 1060492659}
   m_Layer: 0
   m_Name: HeroVisual
   m_TagString: Untagged
@@ -20284,6 +20285,28 @@ Transform:
   - {fileID: 760057406}
   m_Father: {fileID: 1274314455}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1060492659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1060492657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6905335a450c4748b689a57dcfef804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SilhouetteWalk
+  body: {fileID: 0}
+  head: {fileID: 0}
+  lLeg: {fileID: 0}
+  rLeg: {fileID: 0}
+  lArm: {fileID: 0}
+  rArm: {fileID: 0}
+  strideSpeed: 8
+  legSwing: 32
+  armSwing: 26
+  bob: 0.06
 --- !u!1 &1066026706
 GameObject:
   m_ObjectHideFlags: 0

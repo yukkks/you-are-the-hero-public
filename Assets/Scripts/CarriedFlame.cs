@@ -16,6 +16,7 @@ public class CarriedFlame : MonoBehaviour
     Light flame;
     Transform handleTf, flameTf;
     Material flameMat;
+    ParticleSystem emberPs;
     float flickerSeed;
 
     void Awake()
@@ -63,6 +64,41 @@ public class CarriedFlame : MonoBehaviour
         fr.sharedMaterial = flameMat;
         fr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         flameTf = fl.transform;
+
+        BuildEmbers(fl.transform);
+    }
+
+    // Rising embers/sparks from the flame tip — cheap particles, big warmth.
+    void BuildEmbers(Transform tip)
+    {
+        var go = new GameObject("Embers");
+        go.transform.SetParent(tip, false);
+        go.transform.localPosition = Vector3.zero;
+        emberPs = go.AddComponent<ParticleSystem>();
+        var main = emberPs.main;
+        main.startLifetime = 0.9f;
+        main.startSpeed = new ParticleSystem.MinMaxCurve(0.15f, 0.4f);
+        main.startSize = new ParticleSystem.MinMaxCurve(0.01f, 0.03f);
+        main.startColor = new ParticleSystem.MinMaxGradient(new Color(1f, 0.7f, 0.3f), new Color(1f, 0.4f, 0.12f));
+        main.maxParticles = 40;
+        main.simulationSpace = ParticleSystemSimulationSpace.World;
+        main.gravityModifier = -0.08f;   // drift upward
+        var emission = go.GetComponent<ParticleSystem>().emission; emission.rateOverTime = 22f;
+        var shape = emberPs.shape;
+        shape.shapeType = ParticleSystemShapeType.Sphere;
+        shape.radius = 0.03f;
+        var vel = emberPs.velocityOverLifetime;
+        vel.enabled = true; vel.y = new ParticleSystem.MinMaxCurve(0.15f, 0.45f);
+        var col = emberPs.colorOverLifetime;
+        col.enabled = true;
+        var grad = new Gradient();
+        grad.SetKeys(
+            new[] { new GradientColorKey(new Color(1f, 0.75f, 0.35f), 0f), new GradientColorKey(new Color(0.9f, 0.3f, 0.1f), 1f) },
+            new[] { new GradientAlphaKey(0.9f, 0f), new GradientAlphaKey(0f, 1f) });
+        col.color = grad;
+        var psr = go.GetComponent<ParticleSystemRenderer>();
+        if (PrimitiveLibrary.Particle != null) psr.material = PrimitiveLibrary.Particle;
+        psr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
     }
 
     void LateUpdate()
