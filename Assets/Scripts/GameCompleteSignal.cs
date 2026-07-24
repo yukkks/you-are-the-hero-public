@@ -14,11 +14,9 @@ public class GameCompleteSignal : MonoBehaviour
 
     bool fired;
 
-    void Start()
-    {
-        if (GameProgress.Instance != null)
-            GameProgress.Instance.OnAllComplete.AddListener(Fire);
-    }
+    // NOTE: FinaleSequence now drives timing — it calls Fire() at the END of the
+    // in-game cinematic so the web wrapper's closing words land after the finale,
+    // not the instant everything is complete.
 
     public void Fire()
     {

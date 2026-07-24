@@ -90,6 +90,20 @@ public class GameAudio : MonoBehaviour
     public static void PlayGreet() { if (Instance) Instance.PlayOneShot(Instance.greetChime); }
     public static void PlayPhoto() { if (Instance) Instance.PlayOneShot(Instance.photoShimmer); }
     public static void PlayClip(AudioClip clip) { if (Instance) Instance.PlayOneShot(clip); }
+    public static void PlayCompletion() { if (Instance) Instance.PlayOneShot(Instance.completeJingle); }
+
+    // Fade the music + room tone out (the finale's held-breath of silence).
+    public static void FadeOutMusic(float dur)
+    {
+        if (Instance != null) Instance.StartCoroutine(Instance.FadeBed(dur));
+    }
+
+    System.Collections.IEnumerator FadeBed(float dur)
+    {
+        float t = 0f;
+        while (t < dur) { t += Time.deltaTime; SetBedVolume(Mathf.Lerp(1f, 0f, t / dur)); yield return null; }
+        SetBedVolume(0f);
+    }
 
     // A colleague speaks: play their voice and duck the music underneath it.
     public static void PlayVoice(AudioClip clip)
