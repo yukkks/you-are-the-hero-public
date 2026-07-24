@@ -10,6 +10,10 @@ public class DialogueUI : MonoBehaviour
 {
     public static DialogueUI Instance { get; private set; }
 
+    // True while a colleague is speaking — movement + tap-to-move freeze,
+    // and the on-screen joystick hides so nothing overlaps the panel.
+    public static bool IsOpen { get; private set; }
+
     public GameObject panel;
     public TMP_Text nameText;
     public TMP_Text bodyText;
@@ -18,8 +22,8 @@ public class DialogueUI : MonoBehaviour
     public Button nextButton;
     public TMP_Text nextLabel;
 
-    [Header("Portrait (optional)")]
-    public Image portraitImage;
+    [Header("Hide while talking (joystick etc.)")]
+    public GameObject[] hideWhileOpen;
 
     [Header("Typewriter")]
     public float charsPerSecond = 45f;
@@ -37,17 +41,16 @@ public class DialogueUI : MonoBehaviour
 
     public void Show(string who, string[] newLines) { Show(who, newLines, null); }
 
+    // portrait arg kept for call-compatibility but ignored — no picture box.
     public void Show(string who, string[] newLines, Sprite portrait)
     {
         if (panel == null || newLines == null || newLines.Length == 0) return;
         lines = newLines;
         index = 0;
         if (nameText != null) nameText.text = who;
-        if (portraitImage != null)
-        {
-            portraitImage.sprite = portrait;
-            portraitImage.gameObject.SetActive(portrait != null);
-        }
+        IsOpen = true;
+        if (hideWhileOpen != null)
+            foreach (var g in hideWhileOpen) if (g != null) g.SetActive(false);
         panel.SetActive(true);
         ShowCurrent();
     }
@@ -94,5 +97,8 @@ public class DialogueUI : MonoBehaviour
     {
         if (typing != null) { StopCoroutine(typing); typing = null; }
         if (panel != null) panel.SetActive(false);
+        IsOpen = false;
+        if (hideWhileOpen != null)
+            foreach (var g in hideWhileOpen) if (g != null) g.SetActive(true);
     }
 }

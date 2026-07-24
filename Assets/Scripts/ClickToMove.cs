@@ -42,6 +42,15 @@ public class ClickToMove : MonoBehaviour
 
     void Update()
     {
+        // While a colleague is speaking, freeze movement entirely — the joystick
+        // is hidden and taps belong to the dialogue, not the floor.
+        if (DialogueUI.IsOpen)
+        {
+            if (agent.hasPath) agent.ResetPath();
+            UpdateAnimator(false);
+            return;
+        }
+
         Vector3 dir = GetDirectionalInput();      // joystick or keyboard, camera-relative
         bool moving = dir.sqrMagnitude > 0.0001f;
 
@@ -119,11 +128,17 @@ public class ClickToMove : MonoBehaviour
         var interactable = hit.collider.GetComponentInParent<IInteractable>();
         if (interactable != null)
         {
-            // tapping a colleague / photo walks the hero over and engages
+            // Walk to a spot IN FRONT of the target (on the hero's approach side),
+            // not onto it — otherwise she ends up standing inside/behind them and
+            // the follow camera tangles. Offset from the target toward the hero.
             pendingTarget = interactable;
-            agent.stoppingDistance = interactStopDistance;
-            agent.SetDestination(interactable.InteractPosition);
-            TapRipple.Spawn(interactable.InteractPosition);
+            Vector3 ipos = interactable.InteractPosition;
+            Vector3 toHero = transform.position - ipos; toHero.y = 0f;
+            Vector3 stand = ipos + (toHero.sqrMagnitude > 0.01f ? toHero.normalized : -transform.forward) * interactStopDistance;
+            if (NavMesh.SamplePosition(stand, out NavMeshHit sHit, 2f, NavMesh.AllAreas)) stand = sHit.position;
+            agent.stoppingDistance = 0.1f;   // we already offset to the front
+            agent.SetDestination(stand);
+            TapRipple.Spawn(stand);
             return;
         }
 

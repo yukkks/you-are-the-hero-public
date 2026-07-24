@@ -1475,7 +1475,8 @@ MonoBehaviour:
   bodyText: {fileID: 1576147295}
   nextButton: {fileID: 254416704}
   nextLabel: {fileID: 136725924}
-  portraitImage: {fileID: 2103759060}
+  hideWhileOpen:
+  - {fileID: 1720400010}
   charsPerSecond: 45
 --- !u!4 &90913808 stripped
 Transform:
@@ -2244,7 +2245,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &128549430
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24839,8 +24840,8 @@ MonoBehaviour:
   viewCamera: {fileID: 0}
   characterAnimator: {fileID: 0}
   enableKeyboard: 1
-  turnSmoothing: 12
-  interactStopDistance: 1.8
+  turnSmoothing: 8
+  interactStopDistance: 2.2
   clickMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -24855,10 +24856,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 7.2
-  m_Acceleration: 36
+  m_Speed: 5
+  m_Acceleration: 20
   avoidancePriority: 50
-  m_AngularSpeed: 720
+  m_AngularSpeed: 500
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -47054,7 +47055,7 @@ MonoBehaviour:
   pitch: 16
   minPitch: 6
   maxPitch: 65
-  rotateSpeed: 0.25
+  rotateSpeed: 0.16
   dragThreshold: 8
   autoRecenter: 1
   recenterDelay: 1
