@@ -28,6 +28,9 @@ public class DialogueUI : MonoBehaviour
     [Header("Typewriter")]
     public float charsPerSecond = 45f;
 
+    [Header("Non-gamer cue")]
+    public TMP_Text continueHint;   // pulsing "tap to continue" shown once a line finishes typing
+
     string[] lines;
     int index;
     Coroutine typing;
@@ -66,6 +69,7 @@ public class DialogueUI : MonoBehaviour
 
     IEnumerator TypeLine(string line)
     {
+        if (continueHint != null) continueHint.gameObject.SetActive(false);
         bodyText.text = line;
         bodyText.maxVisibleCharacters = 0;
         float shown = 0f;
@@ -76,6 +80,17 @@ public class DialogueUI : MonoBehaviour
             yield return null;
         }
         typing = null;
+        if (continueHint != null) continueHint.gameObject.SetActive(true);   // cue appears when the line finishes
+    }
+
+    void Update()
+    {
+        if (continueHint != null && continueHint.gameObject.activeSelf)
+        {
+            var c = continueHint.color;
+            c.a = 0.55f + 0.45f * Mathf.Sin(Time.time * 3f);
+            continueHint.color = c;
+        }
     }
 
     public void Next()

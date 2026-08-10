@@ -28,6 +28,7 @@ public class NPCDialogue : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        if (FirstTouchHint.Instance != null) FirstTouchHint.Instance.Dismiss();
         if (DialogueUI.Instance != null) DialogueUI.Instance.Show(npcName, lines, portrait);
         if (voiceClip != null) GameAudio.PlayVoice(voiceClip);
         bool newly = GameProgress.Instance != null && GameProgress.Instance.MarkGreeted(gameObject);
