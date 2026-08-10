@@ -1475,8 +1475,7 @@ MonoBehaviour:
   bodyText: {fileID: 1576147295}
   nextButton: {fileID: 254416704}
   nextLabel: {fileID: 136725924}
-  hideWhileOpen:
-  - {fileID: 1720400010}
+  hideWhileOpen: []
   charsPerSecond: 45
 --- !u!4 &90913808 stripped
 Transform:
